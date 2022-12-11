@@ -23,6 +23,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
+  Future<void> _getImage() async {
+    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageXFile;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -33,6 +40,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 10,
           ),
           InkWell(
+            onTap: () {
+              _getImage();
+            },
             child: CircleAvatar(
                 radius: MediaQuery.of(context).size.width * .20,
                 backgroundColor: Colors.white,
