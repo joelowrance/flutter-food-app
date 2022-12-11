@@ -25,7 +25,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       stops: [0.0, 1.0],
                       tileMode: TileMode.clamp)),
             ),
-            automaticallyImplyLeading: false,
+            automaticallyImplyLeading: false, // this removes the back arrow
             title: const Text(
               "iFood",
               style: TextStyle(
@@ -40,7 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 Tab(
                   icon: Icon(Icons.person, color: Colors.white),
-                  text: "Registwer",
+                  text: "Register",
                 )
               ],
               indicatorColor: Colors.white38,
