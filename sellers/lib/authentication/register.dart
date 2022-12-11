@@ -12,6 +12,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -21,8 +22,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ElevatedButton(
             onPressed: () => print("clicked"),
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.cyan,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             child: const Text(
@@ -123,7 +122,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-          )
+          ),
+          const SizedBox(
+            height: 30,
+          ),
         ],
       ),
     );
