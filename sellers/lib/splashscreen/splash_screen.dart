@@ -44,9 +44,9 @@ class _MySplashScreenState extends State<MySplashScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black54,
-                        fontSize: 40,
+                        fontSize: 42,
                         fontFamily: "Signatra",
-                        letterSpacing: 3),
+                        letterSpacing: 2),
                   ))
             ],
           ),
