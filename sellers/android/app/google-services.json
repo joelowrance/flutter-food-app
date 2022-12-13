@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "927319245392",
+    "project_id": "foodpandaclone-dc666",
+    "storage_bucket": "foodpandaclone-dc666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927319245392:android:161fdef7f6a43e58120755",
+        "android_client_info": {
+          "package_name": "com.joelowrance.sellersapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF5JZKU2w4UfYkp1SLj_2vn6SfGXQQLew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
