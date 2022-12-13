@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 
@@ -22,6 +24,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
+
+  Position? _position;
+  List<Placemark>? _placemarks;
+
+  getCurrentLocation() async {
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+
+    Position newPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    _position = newPosition;
+    _placemarks = await placemarkFromCoordinates(
+        _position!.latitude, _position!.longitude);
+
+    Placemark pmark = _placemarks![0];
+
+    String completeAddress =
+        '${pmark.subThoroughfare} ${pmark.thoroughfare}, ${pmark.subLocality} ${pmark.locality} ${pmark.subAdministrativeArea}, ${pmark.administrativeArea} ${pmark.postalCode}, ${pmark.country}';
+    locationController.text = completeAddress;
+  }
 
   Future<void> _getImage() async {
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -100,7 +123,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 40,
                   alignment: Alignment.center,
                   child: ElevatedButton.icon(
-                    onPressed: () => print("clicked"),
+                    onPressed: () {
+                      getCurrentLocation();
+                    },
                     icon: const Icon(
                       Icons.location_on,
                       color: Colors.white,
@@ -122,7 +147,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 30,
           ),
           ElevatedButton(
-            onPressed: () => print("clicked"),
+            onPressed: () {
+              //getCurrentLocation();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.cyan,
                 padding:
