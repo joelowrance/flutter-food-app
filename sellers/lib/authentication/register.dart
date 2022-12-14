@@ -5,6 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
+import 'package:sellers_app/widgets/error_dialog.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -44,6 +45,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String completeAddress =
         '${pmark.subThoroughfare} ${pmark.thoroughfare}, ${pmark.subLocality} ${pmark.locality} ${pmark.subAdministrativeArea}, ${pmark.administrativeArea} ${pmark.postalCode}, ${pmark.country}';
     locationController.text = completeAddress;
+  }
+
+  Future<void> formValidation() async {
+    if (imageXFile == null) {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return const ErrorDialog(message: "Please select an image");
+          });
+    } else {
+      if (passwordController.text == confirmPasswordController.text) {
+        if (confirmPasswordController.text.isNotEmpty &&
+            emailController.text.isNotEmpty &&
+            nameController.text.isNotEmpty &&
+            locationController.text.isNotEmpty &&
+            phoneController.text.isNotEmpty) {
+          // start uploading the image
+        } else {
+          showDialog(
+              context: context,
+              builder: (c) {
+                return const ErrorDialog(message: "All fields are required.");
+              });
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (c) {
+              return const ErrorDialog(
+                  message: "Password and confirmation do not match");
+            });
+      }
+    }
   }
 
   Future<void> _getImage() async {
@@ -148,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              //getCurrentLocation();
+              formValidation();
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.cyan,
