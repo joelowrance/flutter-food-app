@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart' as fstorage;
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
+import 'package:sellers_app/widgets/loading_dialog.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -25,6 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
+  String sellerImageUrl = "";
 
   Position? _position;
   List<Placemark>? _placemarks;
@@ -62,12 +65,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
             locationController.text.isNotEmpty &&
             phoneController.text.isNotEmpty) {
           // start uploading the image
+          showDialog(
+              context: context,
+              builder: (c) {
+                return LoadingDialog(message: "Registering Account");
+              });
+          String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+          fstorage.Reference reference = fstorage.FirebaseStorage.instance
+              .ref()
+              .child("sellers")
+              .child(fileName);
+          fstorage.UploadTask uploadTask =
+              reference.putFile(File(imageXFile!.path));
+          fstorage.TaskSnapshot taskSnapshot =
+              await uploadTask.whenComplete(() => {});
+          await taskSnapshot.ref.getDownloadURL().then((url) {
+            sellerImageUrl = url;
+          });
         } else {
           showDialog(
               context: context,
               builder: (c) {
                 return const ErrorDialog(message: "All fields are required.");
               });
+
+          //save info to fs database.
         }
       } else {
         showDialog(
@@ -131,6 +153,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   data: Icons.email,
                   controller: emailController,
                   hintText: "Email",
+                  isObscure: false,
+                ),
+                CustomTextField(
+                  data: Icons.phone,
+                  controller: phoneController,
+                  hintText: "Phone",
                   isObscure: false,
                 ),
                 CustomTextField(
