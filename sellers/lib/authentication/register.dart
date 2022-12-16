@@ -11,6 +11,7 @@ import 'package:sellers_app/mainScreens/home_screen.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/loading_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -21,11 +22,15 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController(text: "joe");
+  TextEditingController emailController =
+      TextEditingController(text: "test21@gmail.com");
+  TextEditingController passwordController =
+      TextEditingController(text: "pass");
+  TextEditingController confirmPasswordController =
+      TextEditingController(text: "pass");
+  TextEditingController phoneController =
+      TextEditingController(text: "5558789898");
   TextEditingController locationController = TextEditingController();
 
   XFile? imageXFile;
@@ -116,6 +121,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void authenticateSellerAndSignUp() async {
     User? currentUser;
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+    //THIS IS SUSPECT  RIGHT NOW
+    firebaseAuth.signOut();
+
     await firebaseAuth
         .createUserWithEmailAndPassword(
             email: emailController.text.trim(),
@@ -129,6 +138,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.pop(context);
         Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
         Navigator.pushReplacement(context, newRoute);
+      }).catchError((error) {
+        Navigator.pop(context);
+        showDialog(
+            context: context,
+            builder: (b) {
+              return ErrorDialog(message: error.message.toString());
+            });
       });
     }
   }
@@ -147,7 +163,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "long": _position!.longitude,
     });
 
-    //todo: save data locally
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("uid", currentUser.uid);
+    await sharedPreferences.setString("email", currentUser.email.toString());
+    await sharedPreferences.setString("name", nameController.text.trim());
+    await sharedPreferences.setString("photoUrl", sellerImageUrl);
   }
 
   @override
