@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fstorage;
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sellers_app/mainScreens/home_screen.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
 import 'package:sellers_app/widgets/loading_dialog.dart';
@@ -28,6 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
   String sellerImageUrl = "";
+  String completeAddress = "";
 
   Position? _position;
   List<Placemark>? _placemarks;
@@ -45,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     Placemark pmark = _placemarks![0];
 
-    String completeAddress =
+    completeAddress =
         '${pmark.subThoroughfare} ${pmark.thoroughfare}, ${pmark.subLocality} ${pmark.locality} ${pmark.subAdministrativeArea}, ${pmark.administrativeArea} ${pmark.postalCode}, ${pmark.country}';
     locationController.text = completeAddress;
   }
@@ -81,6 +85,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               await uploadTask.whenComplete(() => {});
           await taskSnapshot.ref.getDownloadURL().then((url) {
             sellerImageUrl = url;
+
+            authenticateSellerAndSignUp();
           });
         } else {
           showDialog(
@@ -88,8 +94,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               builder: (c) {
                 return const ErrorDialog(message: "All fields are required.");
               });
-
-          //save info to fs database.
         }
       } else {
         showDialog(
@@ -107,6 +111,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       imageXFile;
     });
+  }
+
+  void authenticateSellerAndSignUp() async {
+    User? currentUser;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim())
+        .then((auth) {
+      currentUser = auth.user;
+    });
+
+    if (currentUser != null) {
+      await saveDataToFirestore(currentUser!).then((value) {
+        Navigator.pop(context);
+        Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
+        Navigator.pushReplacement(context, newRoute);
+      });
+    }
+  }
+
+  Future saveDataToFirestore(User currentUser) async {
+    FirebaseFirestore.instance.collection("sellers").doc(currentUser.uid).set({
+      "sellerUID": currentUser.uid,
+      "sellerEmail": currentUser.email,
+      "sellerName": nameController.text.trim(),
+      "sellerAvatarUrl": sellerImageUrl,
+      "phone": phoneController.text.trim(),
+      "address": completeAddress,
+      "status": "approved",
+      "earnings": 0.0,
+      "lat": _position!.latitude,
+      "long": _position!.longitude,
+    });
+
+    //todo: save data locally
   }
 
   @override
