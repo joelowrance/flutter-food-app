@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sellers_app/global/global.dart';
 import 'package:sellers_app/mainScreens/home_screen.dart';
 import 'package:sellers_app/widgets/custom_text_field.dart';
 import 'package:sellers_app/widgets/error_dialog.dart';
@@ -23,14 +24,10 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController(text: "joe");
-  TextEditingController emailController =
-      TextEditingController(text: "test21@gmail.com");
-  TextEditingController passwordController =
-      TextEditingController(text: "pass");
-  TextEditingController confirmPasswordController =
-      TextEditingController(text: "pass");
-  TextEditingController phoneController =
-      TextEditingController(text: "5558789898");
+  TextEditingController emailController = TextEditingController(text: "test21@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "pass");
+  TextEditingController confirmPasswordController = TextEditingController(text: "pass");
+  TextEditingController phoneController = TextEditingController(text: "5558789898");
   TextEditingController locationController = TextEditingController();
 
   XFile? imageXFile;
@@ -45,12 +42,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     LocationPermission permission;
     permission = await Geolocator.requestPermission();
 
-    Position newPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    Position newPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     _position = newPosition;
-    _placemarks = await placemarkFromCoordinates(
-        _position!.latitude, _position!.longitude);
+    _placemarks = await placemarkFromCoordinates(_position!.latitude, _position!.longitude);
 
     Placemark pmark = _placemarks![0];
 
@@ -80,14 +75,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 return LoadingDialog(message: "Registering Account");
               });
           String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-          fstorage.Reference reference = fstorage.FirebaseStorage.instance
-              .ref()
-              .child("sellers")
-              .child(fileName);
-          fstorage.UploadTask uploadTask =
-              reference.putFile(File(imageXFile!.path));
-          fstorage.TaskSnapshot taskSnapshot =
-              await uploadTask.whenComplete(() => {});
+          fstorage.Reference reference = fstorage.FirebaseStorage.instance.ref().child("sellers").child(fileName);
+          fstorage.UploadTask uploadTask = reference.putFile(File(imageXFile!.path));
+          fstorage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => {});
           await taskSnapshot.ref.getDownloadURL().then((url) {
             sellerImageUrl = url;
 
@@ -104,8 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         showDialog(
             context: context,
             builder: (c) {
-              return const ErrorDialog(
-                  message: "Password and confirmation do not match");
+              return const ErrorDialog(message: "Password and confirmation do not match");
             });
       }
     }
@@ -120,15 +109,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void authenticateSellerAndSignUp() async {
     User? currentUser;
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-    //THIS IS SUSPECT  RIGHT NOW
-    firebaseAuth.signOut();
 
     await firebaseAuth
-        .createUserWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim())
+        .createUserWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim())
         .then((auth) {
       currentUser = auth.user;
     });
@@ -163,11 +146,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "long": _position!.longitude,
     });
 
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString("uid", currentUser.uid);
-    await sharedPreferences.setString("email", currentUser.email.toString());
-    await sharedPreferences.setString("name", nameController.text.trim());
-    await sharedPreferences.setString("photoUrl", sellerImageUrl);
+    //this is in global/global
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    await sharedPreferences!.setString("uid", currentUser.uid);
+    await sharedPreferences!.setString("email", currentUser.email.toString());
+    await sharedPreferences!.setString("name", nameController.text.trim());
+    await sharedPreferences!.setString("photoUrl", sellerImageUrl);
   }
 
   @override
@@ -186,9 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: CircleAvatar(
                 radius: MediaQuery.of(context).size.width * .20,
                 backgroundColor: Colors.white,
-                backgroundImage: imageXFile == null
-                    ? null
-                    : FileImage(File(imageXFile!.path)),
+                backgroundImage: imageXFile == null ? null : FileImage(File(imageXFile!.path)),
                 child: imageXFile == null
                     ? Icon(
                         Icons.add_photo_alternate,
@@ -259,8 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.amber,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30))),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
                   ),
                 )
               ],
@@ -274,13 +256,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               formValidation();
             },
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.cyan,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                backgroundColor: Colors.cyan, padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             child: const Text(
               "Sign Up",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(

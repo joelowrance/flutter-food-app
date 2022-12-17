@@ -10,6 +10,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: const Text("HEIEIEIE", style: TextStyle(color: Colors.white)),
+    );
   }
 }

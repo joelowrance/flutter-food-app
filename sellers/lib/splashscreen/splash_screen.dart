@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sellers_app/authentication/auth_screen.dart';
+import 'package:sellers_app/global/global.dart';
+import 'package:sellers_app/mainScreens/home_screen.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({Key? key}) : super(key: key);
@@ -11,10 +13,13 @@ class MySplashScreen extends StatefulWidget {
 }
 
 class _MySplashScreenState extends State<MySplashScreen> {
-
   startTimer() {
-    Timer(const Duration(seconds: 8), () async{
-      Navigator.push(context, MaterialPageRoute(builder: (c) => const AuthScreen()));
+    Timer(const Duration(seconds: 8), () async {
+      if (firebaseAuth.currentUser != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      } else {
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const AuthScreen()));
+      }
     });
   }
 
@@ -42,11 +47,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
                   child: Text(
                     "Sell Food Online",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 42,
-                        fontFamily: "Signatra",
-                        letterSpacing: 2),
+                    style: TextStyle(color: Colors.black54, fontSize: 42, fontFamily: "Signatra", letterSpacing: 2),
                   ))
             ],
           ),
