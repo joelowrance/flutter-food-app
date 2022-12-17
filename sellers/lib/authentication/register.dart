@@ -146,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "long": _position!.longitude,
     });
 
-    //this is in global/global
+    //this is in global/global - and we also initilize it in main for some reason
     sharedPreferences = await SharedPreferences.getInstance();
 
     await sharedPreferences!.setString("uid", currentUser.uid);
