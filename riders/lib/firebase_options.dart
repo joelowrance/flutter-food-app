@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -57,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCF5JZKU2w4UfYkp1SLj_2vn6SfGXQQLew',
-    appId: '1:927319245392:android:867becfd08691994120755',
+    appId: '1:927319245392:android:a123fe6bb6eb29be120755',
     messagingSenderId: '927319245392',
     projectId: 'foodpandaclone-dc666',
     storageBucket: 'foodpandaclone-dc666.appspot.com',
@@ -65,11 +62,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDUGEr89wjZJLcKP6Xzj5_JEPDf6kXedmE',
-    appId: '1:927319245392:ios:a2bdabe69b0bca6c120755',
+    appId: '1:927319245392:ios:a25e38eb28c144d7120755',
     messagingSenderId: '927319245392',
     projectId: 'foodpandaclone-dc666',
     storageBucket: 'foodpandaclone-dc666.appspot.com',
-    iosClientId: '927319245392-7rj51s5gv4u9ak8r5n6jimkhj9tuu720.apps.googleusercontent.com',
-    iosBundleId: 'com.example.sellersApp',
+    iosClientId: '927319245392-juvt21c93h8o0rmucr2upo442mjc3pi8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.riders',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDUGEr89wjZJLcKP6Xzj5_JEPDf6kXedmE',
+    appId: '1:927319245392:ios:a25e38eb28c144d7120755',
+    messagingSenderId: '927319245392',
+    projectId: 'foodpandaclone-dc666',
+    storageBucket: 'foodpandaclone-dc666.appspot.com',
+    iosClientId: '927319245392-juvt21c93h8o0rmucr2upo442mjc3pi8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.riders',
   );
 }

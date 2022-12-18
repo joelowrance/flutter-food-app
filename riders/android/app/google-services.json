@@ -1,0 +1,154 @@
+{
+  "project_info": {
+    "project_number": "927319245392",
+    "project_id": "foodpandaclone-dc666",
+    "storage_bucket": "foodpandaclone-dc666.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927319245392:android:867becfd08691994120755",
+        "android_client_info": {
+          "package_name": "com.example.sellers_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF5JZKU2w4UfYkp1SLj_2vn6SfGXQQLew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "927319245392-7rj51s5gv4u9ak8r5n6jimkhj9tuu720.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sellersApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927319245392:android:e1d70e90d3ec6edf120755",
+        "android_client_info": {
+          "package_name": "com.joelowrance.ridersapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF5JZKU2w4UfYkp1SLj_2vn6SfGXQQLew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "927319245392-7rj51s5gv4u9ak8r5n6jimkhj9tuu720.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sellersApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927319245392:android:a123fe6bb6eb29be120755",
+        "android_client_info": {
+          "package_name": "com.joelowrance.ridersappp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF5JZKU2w4UfYkp1SLj_2vn6SfGXQQLew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "927319245392-7rj51s5gv4u9ak8r5n6jimkhj9tuu720.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sellersApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927319245392:android:161fdef7f6a43e58120755",
+        "android_client_info": {
+          "package_name": "com.joelowrance.sellersapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF5JZKU2w4UfYkp1SLj_2vn6SfGXQQLew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927319245392-leu9asafh4k2qq1rd2eem2rem5ceusma.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "927319245392-7rj51s5gv4u9ak8r5n6jimkhj9tuu720.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sellersApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

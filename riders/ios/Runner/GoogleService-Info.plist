@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>927319245392-juvt21c93h8o0rmucr2upo442mjc3pi8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.927319245392-juvt21c93h8o0rmucr2upo442mjc3pi8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDUGEr89wjZJLcKP6Xzj5_JEPDf6kXedmE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>927319245392</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.riders</string>
+	<key>PROJECT_ID</key>
+	<string>foodpandaclone-dc666</string>
+	<key>STORAGE_BUCKET</key>
+	<string>foodpandaclone-dc666.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:927319245392:ios:a25e38eb28c144d7120755</string>
+</dict>
+</plist>
