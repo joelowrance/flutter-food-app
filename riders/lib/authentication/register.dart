@@ -8,6 +8,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:riders/global/global.dart';
+import 'package:riders/mainScreens/home_screen.dart';
 import 'package:riders/widgets/custom_text_field.dart';
 import 'package:riders/widgets/error_dialog.dart';
 import 'package:riders/widgets/loading_dialog.dart';
@@ -128,8 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (currentUser != null) {
       await saveDataToFirestore(currentUser!).then((value) {
         Navigator.pop(context);
-        //Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
-        //Navigator.pushReplacement(context, newRoute);
+        Route newRoute = MaterialPageRoute(builder: (c) => const HomeScreen());
+        Navigator.pushReplacement(context, newRoute);
       }).catchError((error) {
         Navigator.pop(context);
         showDialog(
