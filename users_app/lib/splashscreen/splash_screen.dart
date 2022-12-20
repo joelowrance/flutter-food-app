@@ -32,21 +32,28 @@ class _MySplashScreenState extends State<MySplashScreen> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        color: Colors.white,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.amber, Colors.cyan],
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("images/logo.png"),
+              Image.asset("images/welcome.png"),
               const SizedBox(
                 height: 10,
               ),
               const Padding(
                   padding: EdgeInsets.all(18),
                   child: Text(
-                    "Worlds Largest Online Food App",
+                    "Order Food Online with iFood",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54, fontSize: 30, fontFamily: "Signatra", letterSpacing: 2),
+                    style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: "TrainOne", letterSpacing: 2),
                   ))
             ],
           ),
