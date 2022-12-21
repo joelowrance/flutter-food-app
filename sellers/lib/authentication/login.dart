@@ -52,19 +52,29 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (currentUser != null) {
-      readDataAndSetLocalData(currentUser!).then((value) {
-        Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (c) => const HomeScreen()));
-      });
+      await readDataAndSetLocalData(currentUser!);
     }
   }
 
   Future<void> readDataAndSetLocalData(User currentUser) async {
     await FirebaseFirestore.instance.collection("sellers").doc(currentUser.uid).get().then((snapshot) async {
-      await sharedPreferences!.setString("uid", currentUser.uid);
-      await sharedPreferences!.setString("email", snapshot.data()!["sellerEmail"]); //emailcontroller
-      await sharedPreferences!.setString("name", snapshot.data()!["sellerName"]);
-      await sharedPreferences!.setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
+      if (snapshot.exists) {
+        await sharedPreferences!.setString("uid", currentUser.uid);
+        await sharedPreferences!.setString("email", snapshot.data()!["sellerEmail"]); //emailcontroller
+        await sharedPreferences!.setString("name", snapshot.data()!["sellerName"]);
+        await sharedPreferences!.setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
+        Navigator.pop(context);
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      } else {
+        Navigator.pop(context);
+        firebaseAuth.signOut();
+        showDialog(
+            context: context,
+            builder: (c) {
+              return ErrorDialog(message: "User not registered as a seller.");
+            });
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+      }
     });
   }
 
