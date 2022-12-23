@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../authentication/auth_screen.dart';
+import 'package:users_app/widgets/my_drawer.dart';
+
 import '../global/global.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(sharedPreferences!.getString("name") ?? "unknown"),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        //automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -27,17 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   tileMode: TileMode.clamp)),
         ),
       ),
-      body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-          onPressed: () {
-            firebaseAuth
-                .signOut()
-                .then((value) => {Navigator.push(context, MaterialPageRoute(builder: (x) => const AuthScreen()))});
-          },
-          child: const Text("Logout"),
-        ),
-      ),
+      drawer: MyDrawer(),
+      body: Center(),
     );
   }
 }
