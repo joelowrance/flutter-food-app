@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:users_app/widgets/info_design.dart';
 import 'package:users_app/widgets/my_drawer.dart';
 
 import '../global/global.dart';
+import '../models/sellers.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -104,6 +108,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection("sellers").snapshots(),
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? const SliverToBoxAdapter(
+                      child: Center(
+                      child: CircularProgressIndicator(),
+                    ))
+                  : SliverAlignedGrid.count(
+                      itemBuilder: (context, index) {
+                        Sellers smodel = Sellers.fromJson(snapshot.data!.docs[index].data()! as Map<String, dynamic>);
+                        // design for displaying sellers
+                        return InfoDesignWidget(model: smodel, context: context);
+                      },
+                      crossAxisCount: 1,
+                      itemCount: snapshot.data!.docs.length,
+                    );
+            },
           )
         ],
       ),
